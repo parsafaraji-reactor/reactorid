@@ -1,0 +1,1 @@
+{$kycContent nofilter}

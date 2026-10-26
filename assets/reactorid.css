@@ -1,0 +1,171 @@
+/* ReactorID — client verification UI. Visual only; markup/JS unchanged. */
+#reactorid-root{
+  /* one signature blue, used for actions / active step / focus only */
+  --afk-brand:#1d4ed8;
+  --afk-brand-strong:#1e40af;
+  --afk-brand-tint:#eff4ff;
+  /* dark navy header plane */
+  --afk-header:#0f2847;
+  /* cool slate neutrals */
+  --afk-ink:#172033;
+  --afk-ink-soft:#334155;
+  --afk-muted:#64748b;
+  --afk-line:#e2e8f0;
+  --afk-line-strong:#cbd5e1;
+  --afk-soft:#f1f5f9;
+  --afk-bg:#ffffff;
+  /* semantic status */
+  --afk-ok:#15803d;        --afk-ok-bg:#ecfdf3;   --afk-ok-line:#bbf7d0;
+  --afk-err:#dc2626;       --afk-err-bg:#fef2f2;  --afk-err-line:#fecaca;
+  --afk-warn:#b45309;      --afk-warn-bg:#fffbeb; --afk-warn-line:#fde68a;
+  --afk-radius:8px;
+  --afk-radius-lg:12px;
+
+  direction:rtl;
+  font-family:Vazirmatn,IRANSans,Tahoma,sans-serif;
+  color:var(--afk-ink);
+  max-width:600px;
+  margin:28px auto;
+  padding:0 16px;
+}
+#reactorid-root *{box-sizing:border-box}
+
+/* ---- Card: one soft neutral shadow + a hairline border ---- */
+.afk-card{
+  background:var(--afk-bg);
+  border:1px solid var(--afk-line);
+  border-radius:var(--afk-radius-lg);
+  overflow:hidden;
+  box-shadow:0 1px 2px rgba(16,24,40,.04), 0 6px 20px -12px rgba(16,24,40,.12);
+}
+
+/* ---- Header: flat deep-navy authority plane ---- */
+.afk-head{
+  display:flex;align-items:center;gap:14px;
+  padding:22px 24px;
+  background:var(--afk-header);
+  color:#fff;
+}
+.afk-head-icon{
+  width:46px;height:46px;border-radius:10px;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
+  color:#cfe0ff;
+}
+.afk-head-text h2{margin:0 0 3px;font-size:17px;font-weight:700;letter-spacing:-.2px;color:#ffffff}
+.afk-head-text p{margin:0;font-size:12.5px;font-weight:400;color:#aebfd8;line-height:1.7}
+
+/* ---- Stepper: quiet, bordered dots + connector ---- */
+.afk-steps{
+  display:flex;align-items:center;justify-content:center;
+  padding:20px 20px 4px;gap:2px;
+}
+.afk-step{display:flex;flex-direction:column;align-items:center;gap:7px;flex:0 0 auto;width:62px}
+.afk-step em{font-style:normal;font-size:11.5px;color:var(--afk-muted);font-weight:500}
+.afk-dot{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--afk-bg);color:var(--afk-muted);
+  border:1.5px solid var(--afk-line-strong);font-weight:600;font-size:13px;
+  transition:.2s;
+}
+.afk-line{flex:1 1 auto;height:1.5px;background:var(--afk-line-strong);max-width:56px;margin-bottom:18px;transition:.2s}
+.afk-step.is-active .afk-dot{background:var(--afk-brand);color:#fff;border-color:var(--afk-brand)}
+.afk-step.is-active em{color:var(--afk-brand);font-weight:600}
+.afk-step.is-done .afk-dot{background:var(--afk-ok);color:#fff;border-color:var(--afk-ok)}
+.afk-step.is-done em{color:var(--afk-ok)}
+
+/* ---- Body / panels ---- */
+.afk-body{padding:14px 24px 24px}
+.afk-panel{animation:afkIn .25s ease}
+@keyframes afkIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.afk-panel h3{margin:6px 0 6px;font-size:16px;font-weight:700;letter-spacing:-.2px;color:var(--afk-ink)}
+.afk-muted{color:var(--afk-muted);font-size:13px;font-weight:400;line-height:1.9;margin:0 0 20px}
+
+/* ---- Fields: tight group, 1px border, calm focus ring ---- */
+.afk-field{margin-bottom:18px}
+.afk-field>label{display:block;font-size:13px;font-weight:600;color:var(--afk-ink-soft);margin-bottom:7px}
+.afk-field input,.afk-date select{
+  width:100%;height:46px;border:1px solid var(--afk-line-strong);border-radius:var(--afk-radius);
+  padding:0 13px;font-size:14.5px;font-family:inherit;background:#fff;color:var(--afk-ink);
+  transition:border-color .15s, box-shadow .15s;outline:none;
+}
+.afk-field input:hover,.afk-date select:hover{border-color:#94a3b8}
+.afk-field input:focus,.afk-date select:focus{border-color:var(--afk-brand);box-shadow:0 0 0 3px rgba(29,78,216,.14)}
+.afk-field input::placeholder{color:#9aa6b8;letter-spacing:.5px}
+.afk-date{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:8px}
+.afk-date select{
+  display:block;min-width:0;position:relative;z-index:2;
+  pointer-events:auto;cursor:pointer;appearance:auto;-webkit-appearance:menulist;
+  touch-action:manipulation;
+}
+.afk-bank{display:inline-block;margin-top:7px;font-size:12px;font-weight:600;color:var(--afk-brand);min-height:15px}
+
+/* ---- Buttons: solid signature, no glow ---- */
+.afk-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;height:46px;border:1px solid transparent;border-radius:var(--afk-radius);cursor:pointer;
+  font-family:inherit;font-size:14.5px;font-weight:600;transition:background .15s,border-color .15s;text-decoration:none;
+}
+.afk-primary{background:var(--afk-brand);color:#fff}
+.afk-primary:hover{background:var(--afk-brand-strong)}
+.afk-primary:disabled{background:#aab8d8;cursor:not-allowed}
+.afk-btn.is-loading{color:transparent;position:relative;pointer-events:none}
+.afk-btn.is-loading::after{
+  content:"";position:absolute;width:18px;height:18px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.45);border-top-color:#fff;animation:afkSpin .7s linear infinite;
+}
+@keyframes afkSpin{to{transform:rotate(360deg)}}
+.afk-link{background:none;border:none;color:var(--afk-brand);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;padding:6px}
+.afk-link:hover{color:var(--afk-brand-strong);text-decoration:underline}
+.afk-link:disabled{color:var(--afk-muted);cursor:default;text-decoration:none}
+
+/* ---- OTP ---- */
+.afk-otp-box{margin-top:22px;padding-top:20px;border-top:1px solid var(--afk-line)}
+.afk-otp-inputs{display:flex;gap:9px;justify-content:center;margin:4px 0 18px}
+.afk-otp-digit{
+  width:48px;height:54px;text-align:center;font-size:20px;font-weight:700;
+  border:1px solid var(--afk-line-strong);border-radius:var(--afk-radius);background:#fff;color:var(--afk-ink);outline:none;
+  transition:border-color .15s,box-shadow .15s,background .15s;
+}
+.afk-otp-digit:focus{border-color:var(--afk-brand);box-shadow:0 0 0 3px rgba(29,78,216,.14)}
+.afk-otp-digit.filled{border-color:var(--afk-brand);background:var(--afk-brand-tint)}
+.afk-otp-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.afk-otp-actions .afk-btn{width:auto;flex:1 1 150px;height:42px}
+
+/* ---- Inline messages / alerts ---- */
+.afk-msg{margin-top:18px;padding:11px 14px;border-radius:var(--afk-radius);font-size:13px;font-weight:500;line-height:1.8;animation:afkIn .2s;border:1px solid transparent}
+.afk-msg.err{background:var(--afk-err-bg);color:#991b1b;border-color:var(--afk-err-line)}
+.afk-msg.ok{background:var(--afk-ok-bg);color:#166534;border-color:var(--afk-ok-line)}
+.afk-alert{margin:0 24px 6px;padding:11px 14px;border-radius:var(--afk-radius);font-size:13px;font-weight:500;border:1px solid transparent}
+.afk-alert-warn{background:var(--afk-warn-bg);color:#92400e;border-color:var(--afk-warn-line)}
+
+/* ---- Done ---- */
+.afk-done{text-align:center;padding:16px 0 4px}
+.afk-check{
+  width:68px;height:68px;border-radius:50%;margin:4px auto 16px;
+  display:flex;align-items:center;justify-content:center;color:#fff;
+  background:var(--afk-ok);border:5px solid var(--afk-ok-bg);
+  animation:afkPop .3s ease}
+@keyframes afkPop{0%{transform:scale(.7);opacity:0}100%{transform:scale(1);opacity:1}}
+.afk-summary{background:var(--afk-soft);border:1px solid var(--afk-line);border-radius:var(--afk-radius);padding:6px 16px;margin:18px 0;text-align:right}
+.afk-summary .row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;font-size:13px;border-bottom:1px solid var(--afk-line)}
+.afk-summary .row:last-child{border-bottom:none}
+.afk-summary .row b{color:var(--afk-muted);font-weight:500}
+.afk-summary .row span{font-weight:600;color:var(--afk-ink)}
+
+/* ---- Responsive ---- */
+@media (max-width:560px){
+  #reactorid-root{margin:14px auto;padding:0 12px}
+  .afk-head{padding:18px 18px}
+  .afk-body{padding:12px 18px 20px}
+  .afk-alert{margin:0 18px 6px}
+  .afk-steps{gap:0;padding:18px 6px 2px}
+  .afk-step{width:auto;flex:1 1 0}
+  .afk-step em{font-size:11px}
+  .afk-line{max-width:none}
+  .afk-otp-inputs{gap:7px}
+  .afk-otp-digit{width:100%;max-width:52px;height:52px;font-size:19px}
+  .afk-otp-actions .afk-btn{flex-basis:120px}
+}
